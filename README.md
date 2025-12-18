@@ -32,6 +32,9 @@ docker build -t entbappy/stapp:latest .
 ```bash
 docker images -a  
 ```
+```bash
+docker run --rm --env-file .env -d -p 8501:8501 my-python-app 
+```
 
 ```bash
 docker run -d -p 8501:8501 entbappy/stapp 
