@@ -1,17 +1,16 @@
-FROM python:3.10-slim   
-
+FROM alpine:3.22
 EXPOSE 8501
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    software-properties-common \
+# Install Python3, pip, git, and build essentials for Alpine
+RUN apk add --no-cache \
+    python3 \
+    py3-pip \
     git \
-    && rm -rf /var/lib/apt/lists/*
+    build-base
 
 WORKDIR /app
-
 COPY . /app
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
 ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
